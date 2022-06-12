@@ -9,12 +9,66 @@
     <script>
         const WL = new WasmLoader();
         WL.wasm('/build/debug.wasm')
-            .then(instance => {
-                const { fizzbuzz, __getString } = instance;
-                str = __getString(fizzbuzz(3))
-                document.write(str);
-            });
+                .then(instance => {
+                    const { multiply, fizzbuzz, __getString } = instance;
+                    str = __getString(fizzbuzz(3))
+                });
+
+            function pressAdd(){
+                const result = WL.wasm('/build/debug.wasm')
+                    .then(instance => {
+                        const { add, fizzbuzz, __getString } = instance;
+                        str = __getString(fizzbuzz(3))
+                        return add(document.getElementById("first").value, document.getElementById("second").value)
+                    });
+                result.then(i =>{
+                    document.getElementById("result").value = i
+                })
+            }
+
+            function pressSub(){
+                const result = WL.wasm('/build/debug.wasm')
+                    .then(instance => {
+                        const { subtract, fizzbuzz, __getString } = instance;
+                        str = __getString(fizzbuzz(3))
+                        return subtract(document.getElementById("first").value, document.getElementById("second").value)
+                    });
+                result.then(i =>{
+                    document.getElementById("result").value = i
+                })
+            }
+
+            function pressMult(){
+                const result = WL.wasm('/build/debug.wasm')
+                    .then(instance => {
+                        const { multiply, fizzbuzz, __getString } = instance;
+                        str = __getString(fizzbuzz(3))
+                        return multiply(document.getElementById("first").value, document.getElementById("second").value)
+                    });
+                result.then(i =>{
+                    document.getElementById("result").value = i
+                })
+            }
+            
+            function pressDivide(){
+                const result = WL.wasm('/build/debug.wasm')
+                    .then(instance => {
+                        const { divide, fizzbuzz, __getString } = instance;
+                        str = __getString(fizzbuzz(3))
+                        return divide(document.getElementById("first").value, document.getElementById("second").value)
+                    });
+                result.then(i =>{
+                    document.getElementById("result").value = i
+                })
+            }
     </script>
+    <input id="first" />
+    <input id="second" />
+    <button type="button" onclick="pressAdd()">Add</button>
+    <button type="button" onclick="pressSub()">Sub</button>
+    <button type="button" onclick="pressMult()">Mult</button>
+    <button type="button" onclick="pressDivide()">Divide</button>
+    <input id="result" disabled/>
 </body>
 
 </html>
